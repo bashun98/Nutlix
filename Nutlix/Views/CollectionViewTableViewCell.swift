@@ -14,13 +14,13 @@ class CollectionViewTableViewCell: UITableViewCell {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.collectionViewID)
-
+        collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .systemPink
+        //contentView.backgroundColor = .systemPink
         contentView.addSubview(collectionView)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -55,19 +55,19 @@ extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionVie
 
 extension CollectionViewTableViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 140, height: contentView.bounds.height - 40)
+        return CGSize(width: 140, height: contentView.bounds.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         15
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        20
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    //        20
+    //    }
     
 }

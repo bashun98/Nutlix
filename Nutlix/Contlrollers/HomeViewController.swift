@@ -9,11 +9,18 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    private let sectionsTitles = [
+        "Tranding movies",
+        "Popular",
+        "Tranding TV",
+        "Upcoming Movies",
+        "Top Rated"
+    ]
     
     private let homeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: Constants.tableViewCellID)
-        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: Constants.headerViewID)
+        //tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: Constants.headerViewID)
         return tableView
     }()
     
@@ -24,9 +31,20 @@ class HomeViewController: UIViewController {
         homeTableView.delegate = self
         homeTableView.dataSource = self
         configureNavBar()
+        if #available(iOS 15.0, *) {
+            homeTableView.sectionHeaderTopPadding = 0
+        }
+        homeTableView.tableHeaderView?.translatesAutoresizingMaskIntoConstraints = false
+        let headerView = HeaderView(frame: CGRect(x: 0,
+                                                  y: 0,
+                                                  width: view.bounds.width,
+                                                  height: 400))
+        homeTableView.tableHeaderView = headerView
+        homeTableView.sectionFooterHeight = 0
+        NetworkManager.shared.getTrendingMovies { _ in "" }
     }
     
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeTableView.frame = view.bounds
@@ -52,13 +70,13 @@ class HomeViewController: UIViewController {
         ]
         
     }
-
+    
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 20
+        return sectionsTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,7 +85,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewCellID, for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
-      
         return cell
     }
     
@@ -76,28 +93,32 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
-            return 400
-        default:
-            return 0
-        }
+        50
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerViewID) as? HeaderView else { return UITableViewHeaderFooterView() }
-            return header
-        }
-       return nil
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        CGFloat.leastNormalMagnitude
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let defaultOffset = view.safeAreaInsets.top
         let offset = scrollView.contentOffset.y + defaultOffset
-
+        
         navigationController?.navigationBar.transform = .init(translationX: 0,
                                                               y: min(0, -offset))
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sectionsTitles[section]
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else {return}
+        header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
+        header.textLabel?.textAlignment = .left
+        header.textLabel?.textColor = .white
+        //header.textLabel?.text = header.textLabel?.text?.lowercased()
     }
     
 }

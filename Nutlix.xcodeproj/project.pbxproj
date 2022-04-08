@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2032EF1D28002CA0005E32D5 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2032EF1C28002CA0005E32D5 /* CollectionViewTableViewCell.swift */; };
 		2032EF1F28002CD0005E32D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2032EF1E28002CD0005E32D5 /* Constants.swift */; };
+		207994942800BA9F0008C8BB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207994932800BA9F0008C8BB /* NetworkManager.swift */; };
+		207994962800BC900008C8BB /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207994952800BC900008C8BB /* JSONModel.swift */; };
 		20B1571A28003D9D00321858 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B1571928003D9D00321858 /* HeaderView.swift */; };
 		20F49C632800229900C8FC1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F49C622800229900C8FC1F /* AppDelegate.swift */; };
 		20F49C652800229900C8FC1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F49C642800229900C8FC1F /* SceneDelegate.swift */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		2032EF1C28002CA0005E32D5 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 		2032EF1E28002CD0005E32D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		207994932800BA9F0008C8BB /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		207994952800BC900008C8BB /* JSONModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONModel.swift; sourceTree = "<group>"; };
 		20B1571928003D9D00321858 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20F49C5F2800229900C8FC1F /* Nutlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nutlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20F49C622800229900C8FC1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +72,7 @@
 		2032EF1928002B64005E32D5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				207994952800BC900008C8BB /* JSONModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -82,6 +87,7 @@
 		2032EF1B28002BAA005E32D5 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				207994932800BA9F0008C8BB /* NetworkManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -207,6 +213,8 @@
 				20F49C672800229900C8FC1F /* TabBarViewController.swift in Sources */,
 				2032EF1D28002CA0005E32D5 /* CollectionViewTableViewCell.swift in Sources */,
 				20F49C7E2800257100C8FC1F /* DownloadsViewController.swift in Sources */,
+				207994942800BA9F0008C8BB /* NetworkManager.swift in Sources */,
+				207994962800BC900008C8BB /* JSONModel.swift in Sources */,
 				20F49C632800229900C8FC1F /* AppDelegate.swift in Sources */,
 				20B1571A28003D9D00321858 /* HeaderView.swift in Sources */,
 				20F49C652800229900C8FC1F /* SceneDelegate.swift in Sources */,

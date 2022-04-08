@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderView: UITableViewHeaderFooterView {
+class HeaderView: UIView {
     
     private let gradientLayer = CAGradientLayer()
     
@@ -51,11 +51,18 @@ class HeaderView: UITableViewHeaderFooterView {
         return stackView
     }()
     
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         addViews()
         addGradient()
+        //translatesAutoresizingMaskIntoConstraints = false
     }
+    
+//    override init(reuseIdentifier: String?) {
+//        super.init(reuseIdentifier: reuseIdentifier)
+//        addViews()
+//        addGradient()
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -63,14 +70,14 @@ class HeaderView: UITableViewHeaderFooterView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        headerImageView.frame = contentView.bounds
-        gradientLayer.frame = contentView.bounds
+        headerImageView.frame = bounds
+        gradientLayer.frame = bounds
         stackViewlayout()
     }
     
     private func addViews() {
-        contentView.addSubview(headerImageView)
-        contentView.addSubview(buttonsStackView)
+        addSubview(headerImageView)
+        addSubview(buttonsStackView)
         buttonsStackView.addArrangedSubview(playButton)
         buttonsStackView.addArrangedSubview(downLoadButton)
     }
@@ -86,9 +93,9 @@ class HeaderView: UITableViewHeaderFooterView {
     private func stackViewlayout() {
         NSLayoutConstraint.activate([
             buttonsStackView.heightAnchor.constraint(equalToConstant: 35),
-            buttonsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 80),
-            buttonsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -80),
-            buttonsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            buttonsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 80),
+            buttonsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -80),
+            buttonsStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
         ])
     }
     
