@@ -32,7 +32,9 @@ class TabBarViewController: UITabBarController {
         let navController = UINavigationController(rootViewController: rootViewController)
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
-        navController.navigationItem.largeTitleDisplayMode = .automatic
+     //   navController.navigationItem.largeTitleDisplayMode = .automatic
+        navController.navigationBar.tintColor = .label
+
         //rootViewController.navigationItem.title = title
         
         if #available(iOS 13.0, *) {

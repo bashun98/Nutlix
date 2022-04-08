@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2032EF1D28002CA0005E32D5 /* CollectionViewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2032EF1C28002CA0005E32D5 /* CollectionViewTableViewCell.swift */; };
 		2032EF1F28002CD0005E32D5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2032EF1E28002CD0005E32D5 /* Constants.swift */; };
+		20B1571A28003D9D00321858 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B1571928003D9D00321858 /* HeaderView.swift */; };
 		20F49C632800229900C8FC1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F49C622800229900C8FC1F /* AppDelegate.swift */; };
 		20F49C652800229900C8FC1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F49C642800229900C8FC1F /* SceneDelegate.swift */; };
 		20F49C672800229900C8FC1F /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20F49C662800229900C8FC1F /* TabBarViewController.swift */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		2032EF1C28002CA0005E32D5 /* CollectionViewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTableViewCell.swift; sourceTree = "<group>"; };
 		2032EF1E28002CD0005E32D5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		20B1571928003D9D00321858 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		20F49C5F2800229900C8FC1F /* Nutlix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nutlix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20F49C622800229900C8FC1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20F49C642800229900C8FC1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				2032EF1C28002CA0005E32D5 /* CollectionViewTableViewCell.swift */,
+				20B1571928003D9D00321858 /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				2032EF1D28002CA0005E32D5 /* CollectionViewTableViewCell.swift in Sources */,
 				20F49C7E2800257100C8FC1F /* DownloadsViewController.swift in Sources */,
 				20F49C632800229900C8FC1F /* AppDelegate.swift in Sources */,
+				20B1571A28003D9D00321858 /* HeaderView.swift in Sources */,
 				20F49C652800229900C8FC1F /* SceneDelegate.swift in Sources */,
 				20F49C7A2800254300C8FC1F /* UpcomingViewController.swift in Sources */,
 				20F49C782800251D00C8FC1F /* HomeViewController.swift in Sources */,

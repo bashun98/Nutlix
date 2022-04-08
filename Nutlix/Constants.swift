@@ -11,4 +11,5 @@ import Foundation
 enum Constants {
     static let tableViewCellID = "CollectionViewTableViewCell"
     static let collectionViewID = "CollectionViewCell"
+    static let headerViewID = "HeaderView"
 }

@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     private let homeTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(CollectionViewTableViewCell.self, forCellReuseIdentifier: Constants.tableViewCellID)
+        tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: Constants.headerViewID)
         return tableView
     }()
     
@@ -22,17 +23,34 @@ class HomeViewController: UIViewController {
         view.addSubview(homeTableView)
         homeTableView.delegate = self
         homeTableView.dataSource = self
-        
-        homeTableView.tableHeaderView = UIView(frame: CGRect(x: 0,
-                                                             y: 0,
-                                                             width: view.bounds.width,
-                                                             height: 400))
+        configureNavBar()
     }
     
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         homeTableView.frame = view.bounds
+    }
+    
+    private func configureNavBar() {
+        var nutflixImage = UIImage(named: "netflixLogo")
+        nutflixImage = nutflixImage?.withRenderingMode(.alwaysOriginal)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: nutflixImage,
+                                                           style: .done,
+                                                           target: self,
+                                                           action: nil)
+        
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "person"),
+                            style: .done,
+                            target: self,
+                            action: nil),
+            UIBarButtonItem(image: UIImage(systemName: "play.rectangle"),
+                            style: .done,
+                            target: self,
+                            action: nil)
+        ]
+        
     }
 
 }
@@ -58,7 +76,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        40
+        switch section {
+        case 0:
+            return 400
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.headerViewID) as? HeaderView else { return UITableViewHeaderFooterView() }
+            return header
+        }
+       return nil
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let defaultOffset = view.safeAreaInsets.top
+        let offset = scrollView.contentOffset.y + defaultOffset
+
+        navigationController?.navigationBar.transform = .init(translationX: 0,
+                                                              y: min(0, -offset))
     }
     
 }
