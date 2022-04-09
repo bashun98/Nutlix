@@ -8,21 +8,22 @@
 import Foundation
 
 protocol NetworkManagerDescription {
-    func getTrendingMovies(completion: @escaping (String)->())
+    func getMedia(_ text: String, completion: @escaping (Result<[Media],Error>)->())
 }
 
 enum APIError: Error {
-    
+    case failedToGetData
 }
+
 class NetworkManager: NetworkManagerDescription {
 
     
-    static let shared = NetworkManager()
+    static let shared: NetworkManagerDescription = NetworkManager()
+    
     private init() {}
     
-    func getTrendingMovies(completion: @escaping (String) -> ()) {
-        guard let url = URL(string: Constants.baseUrl + "/3/trending/all/day?api_key=" + Constants.APIKey) else {return}
-        print(url)
+    func getMedia(_ text: String, completion: @escaping (Result<[Media],Error>) -> ()) {
+        guard let url = URL(string: Constants.baseUrl + "/\(text)" + "?api_key=" + Constants.APIKey) else {return}
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
@@ -36,11 +37,10 @@ class NetworkManager: NetworkManagerDescription {
             let decoder = JSONDecoder()
             
             do {
-                let decodedData = try decoder.decode(JSONModel.self, from: data)
-
-                print(decodedData.results[0].title)
-            } catch let error {
-                print(error)
+                let decodedData = try decoder.decode(JSONResponse.self, from: data)
+                completion(.success(decodedData.results))
+            } catch {
+                completion(.failure(APIError.failedToGetData))
             }
         }
         task.resume()
@@ -48,3 +48,4 @@ class NetworkManager: NetworkManagerDescription {
     
  
 }
+

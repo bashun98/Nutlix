@@ -9,11 +9,13 @@ import UIKit
 
 class CollectionViewTableViewCell: UITableViewCell {
     
+    private var model = [Media]()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constants.collectionViewID)
+        collectionView.register(MediaCollectionViewCell.self, forCellWithReuseIdentifier: Constants.collectionViewCellID)
         collectionView.showsHorizontalScrollIndicator = false
         return collectionView
     }()
@@ -25,7 +27,7 @@ class CollectionViewTableViewCell: UITableViewCell {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
+
     required init?(coder: NSCoder) {
         return nil
     }
@@ -34,23 +36,30 @@ class CollectionViewTableViewCell: UITableViewCell {
         super.layoutSubviews()
         collectionView.frame = contentView.bounds
     }
+    
+    func configure(with model: [Media]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.model = model
+            self?.collectionView.reloadData()
+        }
+    }
 }
 
 extension CollectionViewTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return model.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.collectionViewID, for: indexPath)
-        cell.backgroundColor = .systemCyan
-        cell.layer.cornerRadius = 12
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.collectionViewCellID, for: indexPath) as? MediaCollectionViewCell else {return UICollectionViewCell()}
+        guard let posterPath = model[indexPath.row].posterPath else {return UICollectionViewCell()}
+ 
+        cell.configure(with: posterPath)
+      
+        
         return cell
     }
-    
-    
-    
 }
 
 extension CollectionViewTableViewCell: UICollectionViewDelegateFlowLayout {

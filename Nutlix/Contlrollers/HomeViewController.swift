@@ -7,13 +7,26 @@
 
 import UIKit
 
+enum Sections: Int {
+    case trendingMovies = 0, popularMovies, popularTVs, trendingTV, upcomingMovies, topRated
+}
+
+enum Medias {
+    case movie, tv
+}
+
+enum Classification {
+    case trending, popular, upcoming, top_rated
+}
+
 class HomeViewController: UIViewController {
     
     private let sectionsTitles = [
-        "Tranding movies",
-        "Popular",
-        "Tranding TV",
-        "Upcoming Movies",
+        "Trending movies",
+        "Trending TV",
+        "Popular movies",
+        "Popular TV",
+        "Upcoming movies",
         "Top Rated"
     ]
     
@@ -41,7 +54,6 @@ class HomeViewController: UIViewController {
                                                   height: 400))
         homeTableView.tableHeaderView = headerView
         homeTableView.sectionFooterHeight = 0
-        NetworkManager.shared.getTrendingMovies { _ in "" }
     }
     
     
@@ -85,19 +97,47 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewCellID, for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
+        var neededString = ""
+        
+        switch indexPath.section {
+        case Sections.trendingMovies.rawValue:
+            neededString = "\(Classification.trending)/\(Medias.movie)/day"
+        case Sections.trendingTV.rawValue:
+            neededString = "\(Classification.trending)/\(Medias.tv)/day"
+        case Sections.popularMovies.rawValue:
+            neededString = "\(Medias.movie)/\(Classification.popular)"
+        case Sections.popularTVs.rawValue:
+            neededString = "\(Medias.tv)/\(Classification.popular)"
+        case Sections.upcomingMovies.rawValue:
+            neededString = "\(Medias.movie)/\(Classification.upcoming)"
+        case Sections.topRated.rawValue:
+            neededString = "\(Medias.movie)/\(Classification.top_rated)"
+        default:
+            
+        }
+     
+        NetworkManager.shared.getMedia(neededString) { result in
+            switch result {
+            case .success(let data):
+                cell.configure(with: data)
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        200
+        return 200
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        50
+        return 50
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        CGFloat.leastNormalMagnitude
+        return CGFloat.leastNormalMagnitude
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -118,7 +158,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y: header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textAlignment = .left
         header.textLabel?.textColor = .white
-        //header.textLabel?.text = header.textLabel?.text?.lowercased()
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
 }
