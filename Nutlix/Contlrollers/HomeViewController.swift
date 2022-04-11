@@ -7,10 +7,6 @@
 
 import UIKit
 
-enum Sections: Int {
-    case trendingMovies = 0, popularMovies, popularTVs, trendingTV, upcomingMovies, topRated
-}
-
 enum Medias {
     case movie, tv
 }
@@ -22,11 +18,11 @@ enum Classification {
 class HomeViewController: UIViewController {
     
     private let sectionsTitles = [
-        "Trending movies",
+        "Trending Movies",
         "Trending TV",
-        "Popular movies",
+        "Popular Movies",
         "Popular TV",
-        "Upcoming movies",
+        "Upcoming Movies",
         "Top Rated"
     ]
     
@@ -97,26 +93,26 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewCellID, for: indexPath) as? CollectionViewTableViewCell else { return UITableViewCell() }
-        var neededString = ""
+        var mediaString = ""
         
         switch indexPath.section {
-        case Sections.trendingMovies.rawValue:
-            neededString = "\(Classification.trending)/\(Medias.movie)/day"
-        case Sections.trendingTV.rawValue:
-            neededString = "\(Classification.trending)/\(Medias.tv)/day"
-        case Sections.popularMovies.rawValue:
-            neededString = "\(Medias.movie)/\(Classification.popular)"
-        case Sections.popularTVs.rawValue:
-            neededString = "\(Medias.tv)/\(Classification.popular)"
-        case Sections.upcomingMovies.rawValue:
-            neededString = "\(Medias.movie)/\(Classification.upcoming)"
-        case Sections.topRated.rawValue:
-            neededString = "\(Medias.movie)/\(Classification.top_rated)"
+        case sectionsTitles.firstIndex(where: {$0 == "Trending Movies"}):
+            mediaString = "\(Classification.trending)/\(Medias.movie)/day"
+        case sectionsTitles.firstIndex(where: {$0 == "Trending TV"}):
+            mediaString = "\(Classification.trending)/\(Medias.tv)/day"
+        case sectionsTitles.firstIndex(where: {$0 == "Popular Movies"}):
+            mediaString = "\(Medias.movie)/\(Classification.popular)"
+        case sectionsTitles.firstIndex(where: {$0 == "Popular TV"}):
+            mediaString = "\(Medias.tv)/\(Classification.popular)"
+        case sectionsTitles.firstIndex(where: {$0 == "Upcoming Movies"}):
+            mediaString = "\(Medias.movie)/\(Classification.upcoming)"
+        case sectionsTitles.firstIndex(where: {$0 == "Top Rated"}):
+            mediaString = "\(Medias.movie)/\(Classification.top_rated)"
         default:
-            
+            mediaString = ""
         }
-     
-        NetworkManager.shared.getMedia(neededString) { result in
+       
+        NetworkManager.shared.getMedia(mediaString) { result in
             switch result {
             case .success(let data):
                 cell.configure(with: data)

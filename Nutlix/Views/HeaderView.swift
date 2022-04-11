@@ -55,15 +55,8 @@ class HeaderView: UIView {
         super.init(frame: frame)
         addViews()
         addGradient()
-        //translatesAutoresizingMaskIntoConstraints = false
     }
-    
-//    override init(reuseIdentifier: String?) {
-//        super.init(reuseIdentifier: reuseIdentifier)
-//        addViews()
-//        addGradient()
-//    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

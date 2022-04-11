@@ -20,7 +20,7 @@ class TabBarViewController: UITabBarController {
     private func setupVCs() {
         viewControllers = [
             createNavController(for: HomeViewController(), title: "Home", image: UIImage(systemName: "house")!),
-            createNavController(for: UpcomingViewController(), title: "Coming Soom", image: UIImage(systemName: "play.circle")!),
+            createNavController(for: UpcomingViewController(), title: "Upcoming", image: UIImage(systemName: "play.circle")!),
             createNavController(for: SearchViewController(), title: "Top Search", image: UIImage(systemName: "magnifyingglass")!),
             createNavController(for: DownloadsViewController(), title: "Downloads", image: UIImage(systemName: "arrow.down.to.line")!)
         ]
