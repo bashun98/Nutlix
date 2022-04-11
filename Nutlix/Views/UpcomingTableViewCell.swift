@@ -71,8 +71,6 @@ class UpcomingTableViewCell: UITableViewCell {
     
     private func stackViewlayout() {
         NSLayoutConstraint.activate([
-//            contentStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-//            contentStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor),
             contentStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             contentStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             contentStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
@@ -86,13 +84,11 @@ class UpcomingTableViewCell: UITableViewCell {
         ])
     }
     
-    func configure(with model: Media) {
-        guard let posterPath = model.posterPath else {return}
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500/\(posterPath)") else {return}
+    func configure(with model: UpcomingModel) {
         upcomingImageView.kf.indicatorType = .activity
-        upcomingImageView.kf.setImage(with: url)
+        upcomingImageView.kf.setImage(with: model.imageURL)
         
-        mediaDescriptionLabel.text = model.originalTitle ?? model.originalName ?? "Unknowed"
+        mediaDescriptionLabel.text = model.title
         
     }
     

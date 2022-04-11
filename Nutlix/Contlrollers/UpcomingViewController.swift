@@ -16,7 +16,7 @@ class UpcomingViewController: UIViewController {
     }()
     
     
-    private var titles = [Media]()
+    private var model = [UpcomingModel]()
     
     
     override func viewDidLoad() {
@@ -30,8 +30,8 @@ class UpcomingViewController: UIViewController {
         setupNavBar()
         NetworkManager.shared.getMedia("movie/upcoming") { [weak self] result in
             switch result {
-            case .success(let data):
-                self?.titles = data
+            case .success(let media):
+                self?.model = media.map{ UpcomingModel(with: $0) }
                 DispatchQueue.main.async {
                     self?.upcomingTableView.reloadData()
                 }
@@ -55,12 +55,12 @@ class UpcomingViewController: UIViewController {
 
 extension UpcomingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return titles.count
+        return model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.upcomingTableViewCellID, for: indexPath) as? UpcomingTableViewCell else { return UITableViewCell() }
-        cell.configure(with: titles[indexPath.row])
+        cell.configure(with: model[indexPath.row])
         return cell
     }
     
