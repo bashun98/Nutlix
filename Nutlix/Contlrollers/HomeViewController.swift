@@ -50,6 +50,7 @@ class HomeViewController: UIViewController {
                                                   height: 400))
         homeTableView.tableHeaderView = headerView
         homeTableView.sectionFooterHeight = 0
+       // NetworkManager.shared.getSomething()
     }
     
     
